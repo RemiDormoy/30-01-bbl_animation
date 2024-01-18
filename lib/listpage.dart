@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,19 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  List<Item> list = [
+    Item(1, Random().nextInt(150) + 50),
+    Item(2, Random().nextInt(150) + 50),
+    Item(3, Random().nextInt(150) + 50),
+    Item(4, Random().nextInt(150) + 50),
+    Item(5, Random().nextInt(150) + 50),
+    Item(6, Random().nextInt(150) + 50),
+    Item(7, Random().nextInt(150) + 50),
+    Item(8, Random().nextInt(150) + 50),
+    Item(9, Random().nextInt(150) + 50),
+    Item(10, Random().nextInt(150) + 50),
+  ];
+  List<Item> pastItems = [];
   final ScrollController controller = ScrollController();
 
   @override
@@ -16,68 +30,112 @@ class _ListPageState extends State<ListPage> {
       body: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        child: ListView.builder(
-          controller: controller,
-          itemCount: list.length + 2,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return Container(
-                height: 100,
-                child: Material(
-                  color: Colors.red,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        list = [
-                              list[0] - 5,
-                              list[0] - 4,
-                              list[0] - 3,
-                              list[0] - 2,
-                              list[0] - 1,
-                            ] +
-                            list;
-                        controller.jumpTo(controller.offset + 500);
-                      });
-                    },
-                    child: Center(child: Text('ajout de machins avant')),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40, bottom: 20),
+              child: Center(child: Text('Bonjour je suis une tabBar')),
+            ),
+            Expanded(
+              child: CustomScrollView(
+                center: centerKey,
+                slivers: [
+                  SliverList(
+                    delegate:
+                        SliverChildBuilderDelegate(childCount: pastItems.length + 1, (BuildContext context, int index) {
+                      return _itemPast(index, context);
+                    }),
                   ),
-                ),
-              );
-            }
-            if (index == list.length + 1) {
-              return Container(
-                height: 100,
-                child: Material(
-                  color: Colors.red,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        list = list +
-                            [
-                              list[list.length - 1] + 1,
-                              list[list.length - 1] + 2,
-                              list[list.length - 1] + 3,
-                              list[list.length - 1] + 4,
-                              list[list.length - 1] + 5,
-                            ];
-                      });
-                    },
-                    child: Center(child: Text('ajout de machins après')),
+                  SliverList(
+                    key: centerKey,
+                    delegate:
+                        SliverChildBuilderDelegate(childCount: list.length + 1, (BuildContext context, int index) {
+                      return _itemFuture(index, context);
+                    }),
                   ),
-                ),
-              );
-            }
-            final yolo = list[index - 1];
-            return Container(
-              key: Key(yolo.toString()),
-              height: 100,
-              width: MediaQuery.sizeOf(context).width,
-              color: yolo % 2 == 0 ? Colors.blue : Colors.white,
-              child: Center(child: Text(yolo.toString())),
-            );
-          },
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  Container _itemPast(int index, BuildContext context) {
+    if (index == pastItems.length) {
+      return Container(
+        height: 100,
+        child: Material(
+          color: Colors.red,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                var pastId = pastItems.isNotEmpty ? pastItems[pastItems.length - 1].id : 1;
+                pastItems = pastItems +
+                    [
+                      Item(pastId - 1, Random().nextInt(150) + 50),
+                      Item(pastId - 2, Random().nextInt(150) + 50),
+                      Item(pastId - 3, Random().nextInt(150) + 50),
+                      Item(pastId - 4, Random().nextInt(150) + 50),
+                      Item(pastId - 5, Random().nextInt(150) + 50),
+                    ];
+              });
+            },
+            child: Center(child: Text('ajout de machins avant')),
+          ),
+        ),
+      );
+    }
+    final yolo = pastItems[index];
+    return Container(
+      height: yolo.height.toDouble(),
+      width: MediaQuery.sizeOf(context).width,
+      color: yolo.id % 2 == 0 ? Colors.blue : Colors.white,
+      child: Center(child: Text(yolo.id.toString())),
+    );
+  }
+
+  Container _itemFuture(int index, BuildContext context) {
+    if (index == list.length) {
+      return Container(
+        height: 100,
+        child: Material(
+          color: Colors.red,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                list = list +
+                    [
+                      Item(list[list.length - 1].id + 1, Random().nextInt(150) + 50),
+                      Item(list[list.length - 1].id + 2, Random().nextInt(150) + 50),
+                      Item(list[list.length - 1].id + 3, Random().nextInt(150) + 50),
+                      Item(list[list.length - 1].id + 4, Random().nextInt(150) + 50),
+                      Item(list[list.length - 1].id + 5, Random().nextInt(150) + 50),
+                    ];
+              });
+            },
+            child: Center(child: Text('ajout de machins après')),
+          ),
+        ),
+      );
+    }
+    final yolo = list[index];
+    return Container(
+      height: yolo.height.toDouble(),
+      width: MediaQuery.sizeOf(context).width,
+      color: yolo.id % 2 == 0 ? Colors.blue : Colors.white,
+      child: Center(child: Text(yolo.id.toString())),
+    );
+  }
 }
+
+class Item {
+  final int id;
+  final int height;
+
+  Item(this.id, this.height);
+}
+
+final centerKey = GlobalKey();
