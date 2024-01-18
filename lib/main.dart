@@ -61,7 +61,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 40),
-            const Center(child: Text('Bienvenue à', style: AppTextStyles.title)).animate(controller: parisController).blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+            const Center(child: Text('Bienvenue à', style: AppTextStyles.title))
+                .animate(controller: parisController)
+                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
             const SizedBox(height: 40),
             ParisWidget(parisController),
             const SizedBox(height: 50),
@@ -69,11 +71,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             const SizedBox(height: 20),
             _ButtonWithAnim(parisController, textController),
             const SizedBox(height: 5),
-            const Center(child: Text('Ou', style: AppTextStyles.subTitle)).animate(controller: parisController).blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+            const Center(child: Text('Ou', style: AppTextStyles.subTitle))
+                .animate(controller: parisController)
+                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
             const SizedBox(height: 5),
             _ButtonReverseWithAnim(parisController, textController),
             const SizedBox(height: 40),
-            const Center(child: Text('Vous avez déjà un compte ?', style: AppTextStyles.subTitle)).animate(controller: textController).blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+            const Center(child: Text('Vous avez déjà un compte ?', style: AppTextStyles.subTitle))
+                .animate(controller: textController)
+                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
             _ShitButtonWithAnim(parisController, textController),
           ],
         ),
@@ -106,7 +112,10 @@ class _ButtonWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TriangleButton(controller, textController).animate(controller: controller).then(delay: 700.milliseconds).slideX(
+    return TriangleButton(controller, textController)
+        .animate(controller: controller)
+        .then(delay: 700.milliseconds)
+        .slideX(
           duration: 400.milliseconds,
           begin: -1,
           curve: Curves.bounceOut,
@@ -122,11 +131,14 @@ class _ButtonReverseWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReverseTriangleButton(controller, textController).animate(controller: controller).then(delay: 700.milliseconds).slideX(
-      duration: 400.milliseconds,
-      begin: 1,
-      curve: Curves.bounceOut,
-    );
+    return ReverseTriangleButton(controller, textController)
+        .animate(controller: controller)
+        .then(delay: 700.milliseconds)
+        .slideX(
+          duration: 400.milliseconds,
+          begin: 1,
+          curve: Curves.bounceOut,
+        );
   }
 }
 
@@ -138,16 +150,18 @@ class _ShitButtonWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ShitButton(controller, textController).animate(controller: textController).then(delay: 400.milliseconds).slideY(
-      duration: 400.milliseconds,
-      begin: 3,
-      curve: Curves.bounceOut,
-    );
+    return _ShitButton(controller, textController)
+        .animate(controller: textController)
+        .then(delay: 400.milliseconds)
+        .slideY(
+          duration: 400.milliseconds,
+          begin: 3,
+          curve: Curves.bounceOut,
+        );
   }
 }
 
 class _ShitButton extends StatelessWidget {
-
   final AnimationController controller;
   final AnimationController textController;
 
@@ -155,7 +169,7 @@ class _ShitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 75, vertical: 20),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
@@ -165,8 +179,11 @@ class _ShitButton extends StatelessWidget {
             onTap: () {
               controller.reverse();
               textController.reverse();
-              Future.delayed(const Duration(seconds: 1))
-                  .then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())));
+              Future.delayed(const Duration(seconds: 1)).then(
+                  (value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())).then((value) {
+                    controller.forward();
+                    textController.forward();
+                  }));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -186,5 +203,4 @@ class _ShitButton extends StatelessWidget {
       ),
     );
   }
-
 }

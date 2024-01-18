@@ -22,7 +22,10 @@ class TriangleButton extends StatelessWidget {
               controller.reverse();
               textController.reverse();
               Future.delayed(const Duration(seconds: 1))
-                  .then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())));
+                  .then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())).then((value) {
+                controller.forward();
+                textController.forward();
+              }));
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -63,7 +66,10 @@ class ReverseTriangleButton extends StatelessWidget {
               controller.reverse();
               textController.reverse();
               Future.delayed(const Duration(seconds: 1))
-                  .then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())));
+                  .then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())).then((value) {
+                        controller.forward();
+                        textController.forward();
+                      }));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -94,9 +100,11 @@ class _TriangleClipper extends CustomClipper<Path> {
     M(x, y) {
       path.moveTo(x * widthFactor, y * heightFactor);
     }
+
     L(x, y) {
       path.lineTo(x * widthFactor, y * heightFactor);
     }
+
     C(dx1, dy1, dx2, dy2, dx3, dy3) {
       path.cubicTo(
         dx1 * widthFactor,
@@ -107,6 +115,7 @@ class _TriangleClipper extends CustomClipper<Path> {
         dy3 * heightFactor,
       );
     }
+
     M(31.7944, 8);
     L(13.2056, 8);
     C(11.8934, 8, 10.7335, 8.85275, 10.3421, 10.1052);
@@ -135,9 +144,11 @@ class _ReverseTriangleClipper extends CustomClipper<Path> {
     M(x, y) {
       path.moveTo(x * widthFactor, y * heightFactor);
     }
+
     L(x, y) {
       path.lineTo(x * widthFactor, y * heightFactor);
     }
+
     C(dx1, dy1, dx2, dy2, dx3, dy3) {
       path.cubicTo(
         dx1 * widthFactor,
@@ -148,6 +159,7 @@ class _ReverseTriangleClipper extends CustomClipper<Path> {
         dy3 * heightFactor,
       );
     }
+
     M(31.7944, 8);
     L(13.2056, 8);
     C(11.8934, 8, 10.7335, 8.85275, 10.3421, 10.1052);
