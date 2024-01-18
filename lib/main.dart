@@ -44,10 +44,19 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 40),
             const Center(child: Text('Bienvenue à', style: AppTextStyles.title)),
             const SizedBox(height: 40),
-            SizedBox(
-              height: 400,
-              child: Stack(
-                children: [FirstOctogone()],
+            Center(
+              child: SizedBox(
+                height: 130,
+                width: 280,
+                child: Stack(
+                  children: [
+                    FirstOctogone(),
+                    SecondOctogone(),
+                    ThirdOctogone(),
+                    FourthOctogone(),
+                    FifthOctogone(),
+                  ],
+                ),
               ),
             )
           ],
