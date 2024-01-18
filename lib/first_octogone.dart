@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 class FirstOctogone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 10,
-      left: 0,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
       child: SizedBox(
         height: 80,
         width: 80,
@@ -30,9 +29,11 @@ class FirstOctogone extends StatelessWidget {
 class SecondOctogone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 50,
-      left: 50,
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 50,
+        left: 50,
+      ),
       child: SizedBox(
         height: 80,
         width: 80,
@@ -56,9 +57,8 @@ class SecondOctogone extends StatelessWidget {
 class ThirdOctogone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 95,
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 95),
       child: SizedBox(
         height: 80,
         width: 80,
@@ -82,9 +82,8 @@ class ThirdOctogone extends StatelessWidget {
 class FourthOctogone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 40,
-      left: 140,
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, left: 140),
       child: SizedBox(
         height: 80,
         width: 80,
@@ -108,9 +107,8 @@ class FourthOctogone extends StatelessWidget {
 class FifthOctogone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 10,
-      left: 200,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 200),
       child: SizedBox(
         height: 80,
         width: 80,

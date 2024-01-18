@@ -1,5 +1,6 @@
 import 'package:animations/colors.dart';
 import 'package:animations/first_octogone.dart';
+import 'package:animations/paris.dart';
 import 'package:animations/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -44,21 +45,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 40),
             const Center(child: Text('Bienvenue à', style: AppTextStyles.title)),
             const SizedBox(height: 40),
-            Center(
-              child: SizedBox(
-                height: 130,
-                width: 280,
-                child: Stack(
-                  children: [
-                    FirstOctogone(),
-                    SecondOctogone(),
-                    ThirdOctogone(),
-                    FourthOctogone(),
-                    FifthOctogone(),
-                  ],
-                ),
-              ),
-            )
+            ParisWidget(),
           ],
         ),
       ),
