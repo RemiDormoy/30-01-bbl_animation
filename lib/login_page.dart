@@ -128,7 +128,9 @@ class _MailField extends WidgetWithAnimation {
   Widget animateWidget(BuildContext context, Widget widget) {
     return widget
         .animate(controller: animationController)
-        .slideY(duration: 500.milliseconds, begin: -20, curve: Curves.fastEaseInToSlowEaseOut);
+        .then(delay: 250.milliseconds)
+        .fadeIn(duration: 500.milliseconds)
+        .slideY(duration: 700.milliseconds, begin: -10, curve: Curves.fastEaseInToSlowEaseOut);
   }
 }
 
@@ -168,7 +170,8 @@ class _PasswordField extends WidgetWithAnimation {
   Widget animateWidget(BuildContext context, Widget widget) {
     return widget
         .animate(controller: animationController)
-        .slideY(duration: 500.milliseconds, begin: -20, curve: Curves.fastEaseInToSlowEaseOut);
+        .fadeIn(duration: 500.milliseconds)
+        .slideY(duration: 700.milliseconds, begin: -20, curve: Curves.fastEaseInToSlowEaseOut);
   }
 }
 
