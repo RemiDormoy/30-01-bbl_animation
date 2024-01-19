@@ -1,6 +1,7 @@
 import 'package:animations/colors.dart';
 import 'package:animations/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class DetailPage extends StatelessWidget {
   final String image;
@@ -27,17 +28,20 @@ class DetailPage extends StatelessWidget {
               height: MediaQuery.sizeOf(context).height / 2.3,
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(0),
-                      bottom: Radius.circular(60),
-                    ),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height / 2.3,
+                  Hero(
+                    tag: image,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(0),
+                        bottom: Radius.circular(60),
+                      ),
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                        width: MediaQuery.sizeOf(context).width,
+                        height: MediaQuery.sizeOf(context).height / 2.3,
+                      ),
                     ),
                   ),
                   Align(

@@ -18,6 +18,7 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
   late AnimationController animationController3;
   late AnimationController animationController4;
   late AnimationController imageController;
+  bool shouldPlayImageAnimation = true;
 
   @override
   void initState() {
@@ -67,6 +68,10 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
                       _CityCard(
                         position: 1,
                         animationController: animationController,
+                        shouldPlayImageAnimation: shouldPlayImageAnimation,
+                        onTap: () {
+                          shouldPlayImageAnimation = false;
+                        },
                         name: 'Nemours',
                         asset: 'assets/nemours.png',
                         country: 'France',
@@ -76,6 +81,10 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
                       _CityCard(
                         position: 2,
                         animationController: animationController,
+                        shouldPlayImageAnimation: shouldPlayImageAnimation,
+                        onTap: () {
+                          shouldPlayImageAnimation = false;
+                        },
                         name: 'Marseille',
                         asset: 'assets/marseille.png',
                         country: 'France',
@@ -86,6 +95,10 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
                       _CityCard(
                         position: 3,
                         animationController: animationController,
+                        shouldPlayImageAnimation: shouldPlayImageAnimation,
+                        onTap: () {
+                          shouldPlayImageAnimation = false;
+                        },
                         name: 'Bali',
                         asset: 'assets/bali.png',
                         country: 'Indonésie',
@@ -94,6 +107,10 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
                       _CityCard(
                         position: 4,
                         animationController: animationController,
+                        shouldPlayImageAnimation: shouldPlayImageAnimation,
+                        onTap: () {
+                          shouldPlayImageAnimation = false;
+                        },
                         name: 'Porto',
                         asset: 'assets/porto.png',
                         country: 'Portugal',
@@ -104,6 +121,10 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
                       _CityCard(
                         position: 5,
                         animationController: animationController,
+                        shouldPlayImageAnimation: shouldPlayImageAnimation,
+                        onTap: () {
+                          shouldPlayImageAnimation = false;
+                        },
                         name: 'Helsinki',
                         asset: 'assets/helsinki.png',
                         country: 'Finlande',
@@ -240,6 +261,8 @@ class _CityCard extends WidgetWithAnimation {
   final int? planeCo2;
   final int? carCo2;
   final int position;
+  final bool shouldPlayImageAnimation;
+  final void Function() onTap;
 
   _CityCard({
     required this.animationController,
@@ -247,6 +270,8 @@ class _CityCard extends WidgetWithAnimation {
     required this.asset,
     required this.country,
     required this.position,
+    required this.shouldPlayImageAnimation,
+    required this.onTap,
     this.trainCo2,
     this.carCo2,
     this.planeCo2,
@@ -280,28 +305,32 @@ class _CityCard extends WidgetWithAnimation {
           color: Colors.black45,
           child: InkWell(
             onTap: () {
+              onTap();
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailPage(asset)));
             },
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
+                Hero(
+                  tag: asset,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(60),
+                      topRight: Radius.circular(60),
+                    ),
+                    child: Image.asset(
+                      asset,
+                      height: 180,
+                      width: MediaQuery.sizeOf(context).width - 40,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                    )
+                        .animate(autoPlay: shouldPlayImageAnimation)
+                        .scaleXY(end: 1.8, duration: 10.milliseconds)
+                        .then(delay: 300.milliseconds)
+                        .scaleXY(end: 1 / 1.8, duration: 4.seconds, curve: Curves.fastEaseInToSlowEaseOut),
                   ),
-                  child: Image.asset(
-                    asset,
-                    height: 180,
-                    width: MediaQuery.sizeOf(context).width - 40,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  )
-                      .animate()
-                      .scaleXY(end: 1.8, duration: 10.milliseconds)
-                      .then(delay: 300.milliseconds)
-                      .scaleXY(end: 1 / 1.8, duration: 4.seconds, curve: Curves.fastEaseInToSlowEaseOut),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
