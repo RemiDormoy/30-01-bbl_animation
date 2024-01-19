@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 class ParisWidget extends StatelessWidget {
   final AnimationController controller;
 
-  ParisWidget(this.controller);
+  const ParisWidget(this.controller);
 
   @override
   Widget build(BuildContext context) {

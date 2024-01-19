@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
@@ -33,8 +32,8 @@ class _ListPageState extends State<ListPage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 20),
+            const Padding(
+              padding: EdgeInsets.only(top: 40, bottom: 20),
               child: Center(child: Text('Bonjour je suis une tabBar')),
             ),
             Expanded(
@@ -63,9 +62,9 @@ class _ListPageState extends State<ListPage> {
     );
   }
 
-  Container _itemPast(int index, BuildContext context) {
+  Widget _itemPast(int index, BuildContext context) {
     if (index == pastItems.length) {
-      return Container(
+      return SizedBox(
         height: 100,
         child: Material(
           color: Colors.red,
@@ -83,7 +82,7 @@ class _ListPageState extends State<ListPage> {
                     ];
               });
             },
-            child: Center(child: Text('ajout de machins avant')),
+            child: const Center(child: Text('ajout de machins avant')),
           ),
         ),
       );
@@ -97,9 +96,9 @@ class _ListPageState extends State<ListPage> {
     );
   }
 
-  Container _itemFuture(int index, BuildContext context) {
+  Widget _itemFuture(int index, BuildContext context) {
     if (index == list.length) {
-      return Container(
+      return SizedBox(
         height: 100,
         child: Material(
           color: Colors.red,
@@ -116,7 +115,7 @@ class _ListPageState extends State<ListPage> {
                     ];
               });
             },
-            child: Center(child: Text('ajout de machins après')),
+            child: const Center(child: Text('ajout de machins après')),
           ),
         ),
       );

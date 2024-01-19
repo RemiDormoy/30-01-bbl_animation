@@ -1,4 +1,5 @@
 import 'package:animations/colors.dart';
+import 'package:animations/list_city_page.dart';
 import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,13 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     Future.delayed(6.seconds).then((value) {
                       setState(() {
                         hasError = false;
+                      });
+                    });
+                  } else {
+                    animationController.reverse();
+                    Future.delayed(1.seconds).then((value) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListCityPage())).then((value) {
+                        animationController.forward();
                       });
                     });
                   }
@@ -269,7 +277,7 @@ class _LoginButton extends WidgetWithAnimation {
 class _LoadingBottomButton extends StatefulWidget {
   final void Function() onLoaded;
 
-  _LoadingBottomButton(this.onLoaded);
+  const _LoadingBottomButton(this.onLoaded);
 
   @override
   State<_LoadingBottomButton> createState() => _LoadingBottomButtonState();

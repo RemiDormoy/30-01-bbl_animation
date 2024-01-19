@@ -61,23 +61,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             const SizedBox(height: 40),
             const Center(child: Text('Bienvenue à', style: AppTextStyles.title))
                 .animate(controller: parisController)
-                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
             const SizedBox(height: 40),
             ParisWidget(parisController),
             const SizedBox(height: 50),
-            _Subtitle().animate(controller: parisController).blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+            _Subtitle().animate(controller: parisController).blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
             const SizedBox(height: 20),
             _ButtonWithAnim(parisController, textController),
             const SizedBox(height: 5),
             const Center(child: Text('Ou', style: AppTextStyles.subTitle))
                 .animate(controller: parisController)
-                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
             const SizedBox(height: 5),
             _ButtonReverseWithAnim(parisController, textController),
             const SizedBox(height: 40),
             const Center(child: Text('Vous avez déjà un compte ?', style: AppTextStyles.subTitle))
                 .animate(controller: textController)
-                .blur(duration: 600.milliseconds, begin: Offset(20, 20)),
+                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
             _ShitButtonWithAnim(parisController, textController),
           ],
         ),
@@ -106,7 +106,7 @@ class _ButtonWithAnim extends StatelessWidget {
   final AnimationController controller;
   final AnimationController textController;
 
-  _ButtonWithAnim(this.controller, this.textController);
+  const _ButtonWithAnim(this.controller, this.textController);
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,7 @@ class _ButtonReverseWithAnim extends StatelessWidget {
   final AnimationController controller;
   final AnimationController textController;
 
-  _ButtonReverseWithAnim(this.controller, this.textController);
+  const _ButtonReverseWithAnim(this.controller, this.textController);
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,7 @@ class _ShitButtonWithAnim extends StatelessWidget {
   final AnimationController controller;
   final AnimationController textController;
 
-  _ShitButtonWithAnim(this.controller, this.textController);
+  const _ShitButtonWithAnim(this.controller, this.textController);
 
   @override
   Widget build(BuildContext context) {

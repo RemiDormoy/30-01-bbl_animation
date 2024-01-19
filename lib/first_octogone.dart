@@ -141,10 +141,10 @@ class OctogonePainter extends CustomPainter {
     final heightFactor = size.height / 128;
     final Paint paint = Paint()..color = color;
     final path = Path();
-    final M = (x, y) {
+    M(x, y) {
       path.moveTo(x * widthFactor, y * widthFactor);
-    };
-    final a = (a, b, c, d, e, f, g) {
+    }
+    a(a, b, c, d, e, f, g) {
       path.relativeArcToPoint(
         Offset(f + widthFactor, g * heightFactor),
         radius: Radius.circular(a * widthFactor),
@@ -152,10 +152,10 @@ class OctogonePainter extends CustomPainter {
         largeArc: d == 1,
         clockwise: e == 1,
       );
-    };
-    final l = (dx, dy) {
+    }
+    l(dx, dy) {
       path.relativeLineTo(dx * widthFactor, dy * heightFactor);
-    };
+    }
     M(59, 2.8867513459481);
     a(10, 10, 0, 0, 1, 10, 0);
     l(45.425625842204, 26.226497308104);
