@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       onPopInvoked: (didPop) {
         if (didPop) return;
         animationController.reverse();
-        Future.delayed(1.seconds).then((value) => Navigator.pop(context));
+        Future.delayed(600.milliseconds).then((value) => Navigator.pop(context));
       },
       child: Scaffold(
         body: DecoratedBox(
@@ -84,7 +84,7 @@ class _TabBar extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       animationController.reverse();
-                      Future.delayed(1.seconds).then((value) => Navigator.pop(context));
+                      Future.delayed(600.milliseconds).then((value) => Navigator.pop(context));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),
