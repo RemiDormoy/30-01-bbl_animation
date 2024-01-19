@@ -69,10 +69,11 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       });
                     });
                   } else {
-                    animationController.reverse();
-                    Future.delayed(1.seconds).then((value) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListCityPage())).then((value) {
-                        animationController.forward();
+                    animationController.reverse().whenComplete(() {
+                      Future.delayed(100.milliseconds).then((value) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListCityPage())).then((value) {
+                          animationController.forward();
+                        });
                       });
                     });
                   }
@@ -316,7 +317,9 @@ class _LoadingBottomButtonState extends State<_LoadingBottomButton> {
                       setState(() {
                         isLoading = false;
                       });
-                      widget.onLoaded();
+                      Future.delayed(500.milliseconds).then((value) {
+                        widget.onLoaded();
+                      });
                     });
                   },
                   child: Padding(
