@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animations/colors.dart';
+import 'package:animations/datail_page.dart';
 import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
@@ -268,136 +269,142 @@ class _CityCard extends WidgetWithAnimation {
   Widget createWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-            color: Colors.black45,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(60),
-              topRight: Radius.circular(60),
-            )),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-                bottomLeft: Radius.circular(60),
-                topRight: Radius.circular(60),
-              ),
-              child: Image.asset(
-                asset,
-                height: 180,
-                width: MediaQuery.sizeOf(context).width - 40,
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
-              )
-                  .animate()
-                  .scaleXY(end: 1.8, duration: 10.milliseconds)
-                  .then(delay: 300.milliseconds)
-                  .scaleXY(end: 1 / 1.8, duration: 4.seconds, curve: Curves.fastEaseInToSlowEaseOut),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(name, style: AppTextStyles.subTitle.copyWith(fontSize: 16)),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+          bottomLeft: Radius.circular(60),
+          topRight: Radius.circular(60),
+        ),
+        child: Material(
+          color: Colors.black45,
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailPage(asset)));
+            },
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                  child: Image.asset(
+                    asset,
+                    height: 180,
+                    width: MediaQuery.sizeOf(context).width - 40,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                  )
+                      .animate()
+                      .scaleXY(end: 1.8, duration: 10.milliseconds)
+                      .then(delay: 300.milliseconds)
+                      .scaleXY(end: 1 / 1.8, duration: 4.seconds, curve: Curves.fastEaseInToSlowEaseOut),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.location_on_outlined, color: Colors.white),
-                              const SizedBox(width: 10),
-                              Expanded(child: Text(country, style: AppTextStyles.subTitle.copyWith(fontSize: 16))),
+                              Text(name, style: AppTextStyles.subTitle.copyWith(fontSize: 16)),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Icon(Icons.location_on_outlined, color: Colors.white),
+                                  const SizedBox(width: 10),
+                                  Expanded(child: Text(country, style: AppTextStyles.subTitle.copyWith(fontSize: 16))),
+                                ],
+                              )
                             ],
-                          )
+                          ),
+                        ),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          if (trainCo2 != null)
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: _getCo2Color(trainCo2!),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.train, color: Colors.white),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      '$trainCo2 kg de Co2',
+                                      style: AppTextStyles.subTitle.copyWith(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (trainCo2 != null && (carCo2 != null || planeCo2 != null)) const SizedBox(height: 10),
+                          if (carCo2 != null)
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: _getCo2Color(carCo2!),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.car_crash, color: Colors.white),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      '$carCo2 kg de Co2',
+                                      style: AppTextStyles.subTitle.copyWith(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (carCo2 != null && planeCo2 != null) const SizedBox(height: 10),
+                          if (planeCo2 != null)
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: _getCo2Color(planeCo2!),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.airplanemode_active, color: Colors.white),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      '$planeCo2 kg de Co2',
+                                      style: AppTextStyles.subTitle.copyWith(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                         ],
                       ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (trainCo2 != null)
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: _getCo2Color(trainCo2!),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.train, color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '$trainCo2 kg de Co2',
-                                  style: AppTextStyles.subTitle.copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      if (trainCo2 != null && (carCo2 != null || planeCo2 != null)) const SizedBox(height: 10),
-                      if (carCo2 != null)
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: _getCo2Color(carCo2!),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.car_crash, color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '$carCo2 kg de Co2',
-                                  style: AppTextStyles.subTitle.copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      if (carCo2 != null && planeCo2 != null) const SizedBox(height: 10),
-                      if (planeCo2 != null)
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: _getCo2Color(planeCo2!),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.airplanemode_active, color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '$planeCo2 kg de Co2',
-                                  style: AppTextStyles.subTitle.copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
