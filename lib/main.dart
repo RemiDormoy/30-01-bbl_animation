@@ -1,11 +1,10 @@
 import 'package:animations/button.dart';
 import 'package:animations/colors.dart';
+import 'package:animations/login_page.dart';
 import 'package:animations/paris.dart';
 import 'package:animations/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-
-import 'listpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       body: DecoratedBox(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -177,13 +175,7 @@ class _ShitButton extends StatelessWidget {
           color: Colors.amber,
           child: InkWell(
             onTap: () {
-              controller.reverse();
-              textController.reverse();
-              Future.delayed(const Duration(seconds: 1)).then(
-                  (value) => Navigator.push(context, MaterialPageRoute(builder: (_) => ListPage())).then((value) {
-                    controller.forward();
-                    textController.forward();
-                  }));
+              _goToLogin(context);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -202,5 +194,15 @@ class _ShitButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _goToLogin(BuildContext context) {
+    controller.reverse();
+    textController.reverse();
+    Future.delayed(const Duration(seconds: 1)).then(
+        (value) => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage())).then((value) {
+          controller.forward();
+          textController.forward();
+        }));
   }
 }
