@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   late AnimationController animationController;
   final TextEditingController mailController = TextEditingController();
   final TextEditingController mdpController = TextEditingController();
+  late AnimationController errorController;
   bool hasError = false;
 
   @override
@@ -49,8 +50,26 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               _MailField(mailController, animationController),
               const SizedBox(height: 20),
               _PasswordField(mdpController, animationController),
-              const SizedBox(height: 40),
-              _LoginButton(animationController),
+              const SizedBox(height: 20),
+              if (hasError) _ErrorLogin(),
+              const SizedBox(height: 20),
+              _LoginButton(
+                animationController: animationController,
+                mailController: mailController,
+                mdpController: mdpController,
+                successCallback: (success) {
+                  if (!success) {
+                    setState(() {
+                      hasError = true;
+                    });
+                    Future.delayed(6.seconds).then((value) {
+                      setState(() {
+                        hasError = false;
+                      });
+                    });
+                  }
+                },
+              ),
               const Expanded(flex: 1, child: SizedBox()),
               _ForgotPasswordButton(animationController),
               const Expanded(flex: 2, child: SizedBox()),
@@ -169,7 +188,6 @@ class _PasswordField extends WidgetWithAnimation {
           controller: textController,
           obscureText: false,
           inputFormatters: [_DiamondFormatter()],
-          //obscuringCharacter: '💎',
           decoration: const InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
             label: Center(child: Text('Mot de passe')),
@@ -212,8 +230,16 @@ class _DiamondFormatter extends TextInputFormatter {
 
 class _LoginButton extends WidgetWithAnimation {
   final AnimationController animationController;
+  final TextEditingController mailController;
+  final TextEditingController mdpController;
+  final void Function(bool) successCallback;
 
-  _LoginButton(this.animationController);
+  _LoginButton({
+    required this.animationController,
+    required this.mailController,
+    required this.mdpController,
+    required this.successCallback,
+  });
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
@@ -234,7 +260,7 @@ class _LoginButton extends WidgetWithAnimation {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: _LoadingBottomButton(() {
-        //TODO
+        successCallback(mdpController.text.length > 4 && mailController.text.contains('@'));
       }),
     );
   }
@@ -282,6 +308,7 @@ class _LoadingBottomButtonState extends State<_LoadingBottomButton> {
                       setState(() {
                         isLoading = false;
                       });
+                      widget.onLoaded();
                     });
                   },
                   child: Padding(
@@ -325,6 +352,43 @@ class _ForgotPasswordButton extends WidgetWithAnimation {
                   fontWeight: FontWeight.bold,
                 ))),
       ],
+    );
+  }
+}
+
+class _ErrorLogin extends WidgetWithAnimation {
+  @override
+  Widget animateWidget(BuildContext context, Widget widget) {
+    return widget
+        .animate()
+        .shimmer(duration: 6.seconds)
+        .shake(hz: 4, curve: Curves.easeInOutCubic)
+        .scaleXY(end: 1.2, duration: 600.milliseconds)
+        .then(delay: 600.milliseconds)
+        .scaleXY(end: 1 / 1.2, duration: 600.milliseconds)
+        .then(delay: 600.milliseconds)
+        .scaleXY(end: 1.2, duration: 600.milliseconds)
+        .shake(hz: 4, curve: Curves.easeInOutCubic)
+        .then(delay: 600.milliseconds)
+        .scaleXY(end: 1 / 1.2, duration: 600.milliseconds)
+        .then(delay: 600.milliseconds);
+  }
+
+  @override
+  Widget createWidget(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40),
+      child: Center(
+        child: Text(
+          'Erreur : mauvais email ou mot de passe',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 }
