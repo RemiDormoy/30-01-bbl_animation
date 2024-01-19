@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   late AnimationController animationController;
   final TextEditingController mailController = TextEditingController();
   final TextEditingController mdpController = TextEditingController();
+  bool hasError = false;
 
   @override
   void initState() {
@@ -232,21 +233,64 @@ class _LoginButton extends WidgetWithAnimation {
   Widget createWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(bottomRight: Radius.circular(100), bottomLeft: Radius.circular(100)),
-        child: Material(
-          color: Colors.greenAccent,
-          child: InkWell(
-            onTap: () {
-              // TODO
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              child: Center(
-                child: Text('Login', style: AppTextStyles.button.copyWith(color: Colors.black)),
-              ),
-            ),
+      child: _LoadingBottomButton(() {
+        //TODO
+      }),
+    );
+  }
+}
+
+class _LoadingBottomButton extends StatefulWidget {
+  final void Function() onLoaded;
+
+  _LoadingBottomButton(this.onLoaded);
+
+  @override
+  State<_LoadingBottomButton> createState() => _LoadingBottomButtonState();
+}
+
+class _LoadingBottomButtonState extends State<_LoadingBottomButton> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(bottomRight: Radius.circular(100), bottomLeft: Radius.circular(100)),
+      child: Center(
+        child: AnimatedContainer(
+          duration: 500.milliseconds,
+          curve: Curves.fastEaseInToSlowEaseOut,
+          width: isLoading ? 68 : MediaQuery.sizeOf(context).width - 60,
+          height: 68,
+          decoration: BoxDecoration(
+            color: AppColors.greenButton,
+            borderRadius: isLoading
+                ? BorderRadius.circular(100)
+                : const BorderRadius.only(bottomRight: Radius.circular(100), bottomLeft: Radius.circular(100)),
           ),
+          child: isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.white,
+                ))
+              : InkWell(
+                  onTap: () {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    Future.delayed(2.seconds).then((value) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                    child: Center(
+                      child: Text('Login', style: AppTextStyles.button.copyWith(color: Colors.black)),
+                    ),
+                  ),
+                ),
         ),
       ),
     );
@@ -260,7 +304,8 @@ class _ForgotPasswordButton extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget.animate(controller: animationController)
+    return widget
+        .animate(controller: animationController)
         .blur(duration: 400.milliseconds, begin: const Offset(20, 20));
   }
 
