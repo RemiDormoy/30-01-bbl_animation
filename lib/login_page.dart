@@ -4,6 +4,7 @@ import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -68,12 +69,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       });
                     });
                   } else {
-                    animationController.reverse().whenComplete(() {
-                      Future.delayed(100.milliseconds).then((value) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListCityPage())).then((value) {
-                          animationController.forward();
-                        });
-                      });
+                    Future.delayed(100.milliseconds).then((value) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListCityPage())).then((value) {});
                     });
                   }
                 },

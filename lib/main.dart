@@ -4,7 +4,6 @@ import 'package:animations/login_page.dart';
 import 'package:animations/paris.dart';
 import 'package:animations/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -170,12 +169,6 @@ class _ShitButton extends StatelessWidget {
   }
 
   void _goToLogin(BuildContext context) {
-    controller.reverse();
-    textController.reverse();
-    Future.delayed(const Duration(seconds: 1)).then(
-        (value) => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage())).then((value) {
-          controller.forward();
-          textController.forward();
-        }));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
   }
 }

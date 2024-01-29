@@ -1,6 +1,5 @@
 import 'package:animations/first_octogone.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class ParisWidget extends StatelessWidget {
   final AnimationController controller;

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DetailPage extends StatelessWidget {
   final String image;
 
-  DetailPage(this.image);
+  const DetailPage(this.image);
 
   @override
   Widget build(BuildContext context) {

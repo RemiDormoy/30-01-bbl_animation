@@ -5,6 +5,7 @@ import 'package:animations/datail_page.dart';
 import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ListCityPage extends StatefulWidget {
   @override
