@@ -5,7 +5,6 @@ import 'package:animations/datail_page.dart';
 import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class ListCityPage extends StatefulWidget {
   @override
@@ -152,9 +151,7 @@ class _WelcomeTitle extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .blur(duration: 400.milliseconds, begin: const Offset(20, 20));
+    return widget;
   }
 
   @override
@@ -220,11 +217,7 @@ class _ChoiceChip extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .then(delay: switch (position) { 1 => 0.milliseconds, 2 => 150.milliseconds, _ => 250.milliseconds })
-        .fade(duration: 500.milliseconds)
-        .slideY(duration: 500.milliseconds, begin: -3, curve: Curves.bounceOut);
+    return widget;
   }
 
   @override
@@ -279,15 +272,7 @@ class _CityCard extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .fadeIn(duration: 400.milliseconds)
-        .then(delay: (150 + 100 * min(position, 3)).milliseconds)
-        .slideX(
-          duration: 500.milliseconds,
-          begin: position % 2 == 0 ? -2 : 2,
-          curve: Curves.fastEaseInToSlowEaseOut,
-        );
+    return widget;
   }
 
   @override
@@ -325,11 +310,7 @@ class _CityCard extends WidgetWithAnimation {
                       width: MediaQuery.sizeOf(context).width - 40,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
-                    )
-                        .animate(autoPlay: shouldPlayImageAnimation)
-                        .scaleXY(end: 1.8, duration: 10.milliseconds)
-                        .then(delay: 300.milliseconds)
-                        .scaleXY(end: 1 / 1.8, duration: 4.seconds, curve: Curves.fastEaseInToSlowEaseOut),
+                    ),
                   ),
                 ),
                 Padding(

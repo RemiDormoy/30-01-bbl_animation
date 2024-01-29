@@ -1,7 +1,6 @@
 import 'package:animations/colors.dart';
 import 'package:animations/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class DetailPage extends StatelessWidget {
   final String image;

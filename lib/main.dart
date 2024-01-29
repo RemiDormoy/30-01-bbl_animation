@@ -59,25 +59,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 40),
-            const Center(child: Text('Bienvenue à', style: AppTextStyles.title))
-                .animate(controller: parisController)
-                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
+            const Center(child: Text('Bienvenue à', style: AppTextStyles.title)),
             const SizedBox(height: 40),
             ParisWidget(parisController),
             const SizedBox(height: 50),
-            _Subtitle().animate(controller: parisController).blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
+            _Subtitle(),
             const SizedBox(height: 20),
             _ButtonWithAnim(parisController, textController),
             const SizedBox(height: 5),
-            const Center(child: Text('Ou', style: AppTextStyles.subTitle))
-                .animate(controller: parisController)
-                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
+            const Center(child: Text('Ou', style: AppTextStyles.subTitle)),
             const SizedBox(height: 5),
             _ButtonReverseWithAnim(parisController, textController),
             const SizedBox(height: 40),
-            const Center(child: Text('Vous avez déjà un compte ?', style: AppTextStyles.subTitle))
-                .animate(controller: textController)
-                .blur(duration: 600.milliseconds, begin: const Offset(20, 20)),
+            const Center(child: Text('Vous avez déjà un compte ?', style: AppTextStyles.subTitle)),
             _ShitButtonWithAnim(parisController, textController),
           ],
         ),
@@ -110,14 +104,7 @@ class _ButtonWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TriangleButton(controller, textController)
-        .animate(controller: controller)
-        .then(delay: 700.milliseconds)
-        .slideX(
-          duration: 400.milliseconds,
-          begin: -1,
-          curve: Curves.bounceOut,
-        );
+    return TriangleButton(controller, textController);
   }
 }
 
@@ -129,14 +116,7 @@ class _ButtonReverseWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReverseTriangleButton(controller, textController)
-        .animate(controller: controller)
-        .then(delay: 700.milliseconds)
-        .slideX(
-          duration: 400.milliseconds,
-          begin: 1,
-          curve: Curves.bounceOut,
-        );
+    return ReverseTriangleButton(controller, textController);
   }
 }
 
@@ -148,14 +128,7 @@ class _ShitButtonWithAnim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ShitButton(controller, textController)
-        .animate(controller: textController)
-        .then(delay: 400.milliseconds)
-        .slideY(
-          duration: 400.milliseconds,
-          begin: 3,
-          curve: Curves.bounceOut,
-        );
+    return _ShitButton(controller, textController);
   }
 }
 

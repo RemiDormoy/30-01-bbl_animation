@@ -4,7 +4,6 @@ import 'package:animations/text_styles.dart';
 import 'package:animations/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -170,11 +169,7 @@ class _MailField extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .then(delay: 250.milliseconds)
-        .fadeIn(duration: 500.milliseconds)
-        .slideY(duration: 700.milliseconds, begin: -10, curve: Curves.fastEaseInToSlowEaseOut);
+    return widget;
   }
 }
 
@@ -211,10 +206,7 @@ class _PasswordField extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .fadeIn(duration: 500.milliseconds)
-        .slideY(duration: 700.milliseconds, begin: -20, curve: Curves.fastEaseInToSlowEaseOut);
+    return widget;
   }
 }
 
@@ -252,16 +244,7 @@ class _LoginButton extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .then(delay: 200.milliseconds)
-        .fadeIn(duration: 500.milliseconds)
-        .slideY(
-          delay: 200.milliseconds,
-          duration: 400.milliseconds,
-          begin: 5,
-          curve: Curves.fastEaseInToSlowEaseOut,
-        );
+    return widget;
   }
 
   @override
@@ -342,9 +325,7 @@ class _ForgotPasswordButton extends WidgetWithAnimation {
 
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate(controller: animationController)
-        .blur(duration: 400.milliseconds, begin: const Offset(20, 20));
+    return widget;
   }
 
   @override
@@ -370,19 +351,7 @@ class _ForgotPasswordButton extends WidgetWithAnimation {
 class _ErrorLogin extends WidgetWithAnimation {
   @override
   Widget animateWidget(BuildContext context, Widget widget) {
-    return widget
-        .animate()
-        .shimmer(duration: 6.seconds)
-        .shake(hz: 4, curve: Curves.easeInOutCubic)
-        .scaleXY(end: 1.2, duration: 600.milliseconds)
-        .then(delay: 600.milliseconds)
-        .scaleXY(end: 1 / 1.2, duration: 600.milliseconds)
-        .then(delay: 600.milliseconds)
-        .scaleXY(end: 1.2, duration: 600.milliseconds)
-        .shake(hz: 4, curve: Curves.easeInOutCubic)
-        .then(delay: 600.milliseconds)
-        .scaleXY(end: 1 / 1.2, duration: 600.milliseconds)
-        .then(delay: 600.milliseconds);
+    return widget;
   }
 
   @override

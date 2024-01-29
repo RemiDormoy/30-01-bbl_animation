@@ -15,26 +15,11 @@ class ParisWidget extends StatelessWidget {
         width: 280,
         child: Stack(
           children: [
-            FirstOctogone().animate(controller: controller).slideY(
-                  duration: 500.milliseconds,
-                  begin: -3,
-                  curve: Curves.bounceOut,
-                ),
-            SecondOctogone()
-                .animate(controller: controller)
-                .then(delay: 250.milliseconds)
-                .slideY(duration: 500.milliseconds, begin: -3, curve: Curves.bounceOut),
-            ThirdOctogone()
-                .animate(controller: controller)
-                .then(delay: 150.milliseconds)
-                .slideY(duration: 500.milliseconds, begin: -3, curve: Curves.bounceOut),
-            FourthOctogone()
-                .animate(controller: controller)
-                .slideY(duration: 500.milliseconds, begin: -3, curve: Curves.bounceOut),
-            FifthOctogone()
-                .animate(controller: controller)
-                .then(delay: 350.milliseconds)
-                .slideY(duration: 500.milliseconds, begin: -3, curve: Curves.bounceOut),
+            FirstOctogone(),
+            SecondOctogone(),
+            ThirdOctogone(),
+            FourthOctogone(),
+            FifthOctogone(),
           ],
         ),
       ),
