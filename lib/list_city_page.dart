@@ -33,14 +33,9 @@ class _ListCityPageState extends State<ListCityPage> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvoked: (didPop) {
         if (didPop) return;
-        animationController.reverse().whenComplete(
-              () => Future.delayed(100.milliseconds).then((value) {
-                Navigator.pop(context);
-              }),
-            );
       },
       child: Scaffold(
         body: DecoratedBox(
